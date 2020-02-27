@@ -1,21 +1,37 @@
-name: Service-1 CI
+name: Services CI
 
 on: [push]
 
 jobs:
-  build:
-
+  build-service1:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 8.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 8.x
-    - run: cd service1 
-    - run: npm install
-    - run: npm run build --if-present
-    - run: npm test
-      env:
-        CI: true
+      - uses: actions/checkout@v2
+      - name: Use Node.js 8.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 8.x
+      - name: Set service1 as working directory
+      - working-directory: ./service1
+      - run: npm install
+      - run: npm run build --if-present
+      - run: npm test
+        env:
+          CI: true
+
+  build-service2:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 8.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 8.x
+      - name: Set service2 as working directory
+      - working-directory: ./service2
+      - run: npm install
+      - run: npm run build --if-present
+      - run: npm test
+        env:
+          CI: true
